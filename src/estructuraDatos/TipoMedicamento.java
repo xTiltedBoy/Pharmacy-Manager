@@ -1,0 +1,14 @@
+package estructuraDatos;
+
+public enum TipoMedicamento {
+    ANALGESICOS,
+    LAXANTES,
+    ANTIINFECCIOSOS,
+    ANTIDEPRESIVOS,
+    ANTITUSIVOS,
+    MUCOLITICOS,
+    ANTIACIDOS,
+    ANTIULCEROSOS,
+    ANTIALERGICOS,
+    ANTIFIARREICOS
+}
