@@ -4,13 +4,14 @@ import estructuraDatos.*;
 import utilidades.IO_ES;
 import utilidades.ValidarDatos;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class CPrincipal {
 
-    private static ArrayList<Cliente> CLIENTES = new ArrayList<>();
-    private static ArrayList<Producto> PRODUCTOS = new ArrayList<>();
+    private static final ArrayList<Cliente> CLIENTES = new ArrayList<>();
+    private static final ArrayList<Producto> PRODUCTOS = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -18,7 +19,7 @@ public class CPrincipal {
 
     }
 
-    public static void menuPrincipal() {
+    private static void menuPrincipal() {
 
         IO_ES.escribir("===== Menú Principal =====");
         IO_ES.escribir(" 1. Gestionar Clientes.");
@@ -39,13 +40,27 @@ public class CPrincipal {
                 gestionarProductos();
                 break;
             case 3:
+                try {
+                    guardarDatos();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            case 4:
+                try {
+                    recuperarDatos();
+                } catch (IOException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            case 5:
                 System.exit(0);
                 break;
         }
 
     }
 
-    public static void gestionarClientes(){
+    private static void gestionarClientes(){
 
         IO_ES.escribir("======= Gestionar Clientes =======");
         IO_ES.escribir(" 1. Dar de alta un cliente nuevo.");
@@ -272,7 +287,7 @@ public class CPrincipal {
 
     }
 
-    public static void gestionarProductos(){
+    private static void gestionarProductos(){
 
         IO_ES.escribir("======= Gestionar Productos =======");
         IO_ES.escribir("1. Dar de alta un producto.");
@@ -341,7 +356,7 @@ public class CPrincipal {
                                 IO_ES.leerDecimal("Introduce el precio del producto: "),
                                 IO_ES.leerEntero("Introduce el stock del producto: "),
                                 selecionarCategoria(),
-                                IO_ES.leerEntero("Introduce el las dosis de cada unidad: "),
+                                IO_ES.leerEntero("Introduce las dosis de cada unidad: "),
                                 IO_ES.leerDecimal("Introduce el porcentaje de descuento: ")
                         ));
 
@@ -351,6 +366,8 @@ public class CPrincipal {
                 IO_ES.escribir("");
                 IO_ES.escribir("Producto dado de alta correctamente.");
                 IO_ES.escribir("");
+
+                sleep(2);
 
                 gestionarProductos();
 
@@ -561,6 +578,83 @@ public class CPrincipal {
                 menuPrincipal();
                 break;
         }
+
+    }
+
+    private static void guardarDatos() throws IOException {
+
+        try {
+            FileOutputStream archivoSalida = new FileOutputStream("datos.txt");
+            ObjectOutputStream objetoSalida = new ObjectOutputStream(archivoSalida);
+
+            for (Cliente c : CLIENTES) {
+                objetoSalida.writeObject(c);
+            }
+
+            for (Producto p : PRODUCTOS) {
+                objetoSalida.writeObject(p);
+            }
+
+            objetoSalida.close();
+
+            IO_ES.escribir("");
+            IO_ES.escribir("Datos guardados correctamente.");
+            IO_ES.escribir("");
+
+            sleep(2);
+
+            menuPrincipal();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private static void recuperarDatos() throws IOException, ClassNotFoundException {
+
+        try {
+            FileInputStream archivoEntrada = new FileInputStream("datos.txt");
+            ObjectInputStream objetoEntrada = new ObjectInputStream(archivoEntrada);
+            ArrayList<Object> objetosRecuperados = new ArrayList<>();
+
+            while (true) {
+                try {
+                    Object objetoRecuperado = objetoEntrada.readObject();
+                    objetosRecuperados.add(objetoRecuperado);
+                } catch (EOFException e) {
+                    break;
+                }
+            }
+
+            for (Object objeto : objetosRecuperados) {
+
+                if (objeto instanceof Cliente) {
+                    CLIENTES.add((Cliente) objeto);
+                } else if (objeto instanceof Producto) {
+                    PRODUCTOS.add((Producto) objeto);
+                }
+
+            }
+
+            objetoEntrada.close();
+
+            IO_ES.escribir("");
+            IO_ES.escribir("Datos recuperados correctamente.");
+            IO_ES.escribir("");
+
+            sleep(2);
+
+            menuPrincipal();
+
+        } catch (IOException | ClassNotFoundException e) {
+
+            e.printStackTrace();
+
+        }
+
+
+
 
     }
 

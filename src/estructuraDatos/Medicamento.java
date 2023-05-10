@@ -1,6 +1,8 @@
 package estructuraDatos;
 
-public class Medicamento extends Producto{
+import java.io.Serializable;
+
+public class Medicamento extends Producto implements Serializable {
 
     private String comoTomar;
     private String efectosAdverso;

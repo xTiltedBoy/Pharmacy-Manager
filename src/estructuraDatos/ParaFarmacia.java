@@ -1,6 +1,8 @@
 package estructuraDatos;
 
-public class ParaFarmacia extends Producto{
+import java.io.Serializable;
+
+public class ParaFarmacia extends Producto implements Serializable {
 
     private int dosisUnidades;
     private double descuento;

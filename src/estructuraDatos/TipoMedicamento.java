@@ -1,6 +1,8 @@
 package estructuraDatos;
 
-public enum TipoMedicamento {
+import java.io.Serializable;
+
+public enum TipoMedicamento implements Serializable {
     ANALGESICOS,
     LAXANTES,
     ANTIINFECCIOSOS,

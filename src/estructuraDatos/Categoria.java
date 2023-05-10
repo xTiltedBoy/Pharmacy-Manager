@@ -1,6 +1,8 @@
 package estructuraDatos;
 
-public enum Categoria {
+import java.io.Serializable;
+
+public enum Categoria implements Serializable {
     DENTAL,
     FACIAL,
     GELES,

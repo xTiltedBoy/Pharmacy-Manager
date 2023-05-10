@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public abstract class IO_ES {
 
-    private static Scanner SCANNER_INT = new Scanner(System.in);
+    private static final Scanner SCANNER_INT = new Scanner(System.in);
 
-    private static Scanner SCANNER_DEC = new Scanner(System.in);
-    private static Scanner SCANNER_CHAR = new Scanner(System.in);
+    private static final Scanner SCANNER_DEC = new Scanner(System.in);
+    private static final Scanner SCANNER_CHAR = new Scanner(System.in);
 
     public static int leerEntero() {
         return SCANNER_INT.nextInt();
