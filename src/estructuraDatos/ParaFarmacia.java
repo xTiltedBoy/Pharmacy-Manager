@@ -3,7 +3,7 @@ package estructuraDatos;
 import java.io.Serializable;
 
 /**
- * Guarda los datos de un producto de tipo ParaFarmacia de la farmacia.
+ * Guarda los datos de un producto de tipo ParaFarmacia.
  *
  * @author Miguel Ruiz Baca
  * @version 1.0
