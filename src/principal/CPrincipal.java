@@ -178,9 +178,7 @@ public class CPrincipal {
                         // Si el DNI introducido coincide con el DNI de un cliente, se muestra la información del cliente.
                         if (cliente.getDni().equals(dni)) {
 
-                            IO_ES.escribir("");
-                            IO_ES.escribir(cliente.toString());
-                            IO_ES.escribir("");
+                            mostrarDatos(cliente);
 
                             sleep(2);
 
@@ -262,6 +260,8 @@ public class CPrincipal {
 
                 } else {
 
+                    boolean modificado = false;
+
                     // Se pide el ID del cliente.
                     id = IO_ES.leerCadena("Introduce el ID del cliente: ");
 
@@ -279,18 +279,22 @@ public class CPrincipal {
                             IO_ES.escribir("Cliente modificado correctamente.");
                             IO_ES.escribir("");
 
-                            sleep(2);
-
-                        } else {
-
-                            // Si no coincide, se muestra un mensaje de error.
-                            IO_ES.escribir("");
-                            IO_ES.escribir("ERROR: No se ha encontrado ningun cliente que se corresponda con el ID introducido.");
-                            IO_ES.escribir("");
+                            modificado = true;
 
                             sleep(2);
 
                         }
+
+                    }
+
+                    // Si no coincide, se muestra un mensaje de error.
+                    if (!modificado) {
+
+                        IO_ES.escribir("");
+                        IO_ES.escribir("ERROR: No se ha encontrado ningun cliente que se corresponda con el ID introducido.");
+                        IO_ES.escribir("");
+
+                        sleep(2);
 
                     }
 
@@ -313,8 +317,7 @@ public class CPrincipal {
                     // Se muestran los datos de todos los clientes.
                     for (Cliente cliente : CLIENTES) {
 
-                        IO_ES.escribir(cliente.toString());
-                        IO_ES.escribir("");
+                        mostrarDatos(cliente);
 
                     }
 
@@ -450,9 +453,7 @@ public class CPrincipal {
                         // Si el código introducido coincide con el código de un producto, se muestran los datos de ese producto.
                         if (producto.getCodigo().equals(codigo)) {
 
-                            IO_ES.escribir("");
-                            IO_ES.escribir(producto.toString());
-                            IO_ES.escribir("");
+                            mostrarDatos(producto);
 
                             sleep(2);
 
@@ -460,7 +461,7 @@ public class CPrincipal {
 
                             // Si el código introducido no coincide con el código de ningún producto, se muestra un mensaje de error.
                             IO_ES.escribir("");
-                            IO_ES.escribir("ERROR: No se ha encontrado ningun cliente que se corresponda con el código introducido.");
+                            IO_ES.escribir("ERROR: No se ha encontrado ningun producto que se corresponda con el código introducido.");
                             IO_ES.escribir("");
 
                             sleep(2);
@@ -513,7 +514,7 @@ public class CPrincipal {
                     if (size == PRODUCTOS.size()) {
 
                         IO_ES.escribir("");
-                        IO_ES.escribir("ERROR: No se ha encontrado ningun cliente que se corresponda con el código introducido.");
+                        IO_ES.escribir("ERROR: No se ha encontrado ningun producto que se corresponda con el código introducido.");
                         IO_ES.escribir("");
 
                         sleep(2);
@@ -537,6 +538,8 @@ public class CPrincipal {
                     sleep(2);
 
                 } else {
+
+                    boolean modificado = false;
 
                     // Se pide el código del producto a modificar.
                     codigo = IO_ES.leerCadena("Introduce el código del producto: ");
@@ -565,16 +568,26 @@ public class CPrincipal {
 
                             }
 
-                        } else {
+                            IO_ES.escribir("");
+                            IO_ES.escribir("Producto modificado correctamente.");
+                            IO_ES.escribir("");
 
-                            // Si el código introducido no coincide con el código de ningún producto, se muestra un mensaje de error.
-                            IO_ES.escribir("");
-                            IO_ES.escribir("ERROR: No se ha encontrado ningun cliente que se corresponda con el código introducido.");
-                            IO_ES.escribir("");
+                            modificado = true;
 
                             sleep(2);
 
                         }
+
+                    }
+
+                    // Si el código introducido no coincide con el código de ningún producto, se muestra un mensaje de error.
+                    if (!modificado) {
+
+                        IO_ES.escribir("");
+                        IO_ES.escribir("ERROR: No se ha encontrado ningun producto que se corresponda con el código introducido.");
+                        IO_ES.escribir("");
+
+                        sleep(2);
 
                     }
 
@@ -599,8 +612,7 @@ public class CPrincipal {
                     // Se muestran los datos de todos los productos.
                     for (Producto producto : PRODUCTOS) {
 
-                        IO_ES.escribir(producto.toString());
-                        IO_ES.escribir("");
+                        mostrarDatos(producto);
 
                     }
 
@@ -720,9 +732,6 @@ public class CPrincipal {
             menuPrincipal();
 
         }
-
-
-
 
     }
 
@@ -880,7 +889,57 @@ public class CPrincipal {
     }
 
     /**
+     * Muestra los datos de los clientes.
+     *
+     * @param cliente Objeto cliente.
+     */
+    private static void mostrarDatos(Cliente cliente) {
+        IO_ES.escribir("");
+        IO_ES.escribir("Datos del cliente: " + cliente.getId());
+        IO_ES.escribir("");
+        IO_ES.escribir("DNI: " + cliente.getDni());
+        IO_ES.escribir("Nombre: " + cliente.getNombre());
+        IO_ES.escribir("Dirección: " + cliente.getDireccion());
+        IO_ES.escribir("Teléfono: " + cliente.getTelefono());
+        IO_ES.escribir("Baja: " + cliente.isBaja());
+        IO_ES.escribir("");
+    }
+
+    /**
+     * Muestra los datos de los productos.
+     *
+     * @param producto Objeto producto.
+     */
+    private static void mostrarDatos(Producto producto) {
+        IO_ES.escribir("");
+        IO_ES.escribir("Datos del producto: " + producto.getCodigo());
+        IO_ES.escribir("Tipo: " + producto.getClass().getSimpleName());
+        IO_ES.escribir("Nombre: " + producto.getNombre());
+        IO_ES.escribir("Descripción: " + producto.getDescripcion());
+        IO_ES.escribir("Precio: " + producto.getPrecio() + "€");
+        IO_ES.escribir("Stock: " + producto.getUnidades());
+
+        if (producto instanceof Medicamento) {
+
+            // Si el producto es de tipo medicamento, se muestran los datos de ese producto.
+            IO_ES.escribir("Tipo de medicamento: " + ((Medicamento) producto).getTipoMedicamento());
+            IO_ES.escribir("Como tomarlo: " + ((Medicamento) producto).getComoTomar());
+            IO_ES.escribir("Efectos secundarios: " + ((Medicamento) producto).getEfectosAdverso());
+
+        } else if (producto instanceof ParaFarmacia) {
+
+            // Si el producto es de tipo parafarmacia, se muestran los datos de ese producto.
+            IO_ES.escribir("Categoria: " + ((ParaFarmacia) producto).getCategoria());
+            IO_ES.escribir("Dosis: " + ((ParaFarmacia) producto).getDosisUnidades());
+            IO_ES.escribir("Descuento: " + ((ParaFarmacia) producto).getDescuento() + "%");
+
+        }
+        IO_ES.escribir("");
+    }
+
+    /**
      * Permite pausar la ejecución del programa.
+     *
      * @param segundos Segundos que se desea pausar la ejecución del programa.
      */
     private static void sleep(int segundos) {
