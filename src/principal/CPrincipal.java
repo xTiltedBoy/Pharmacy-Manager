@@ -8,19 +8,42 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Clase principal del programa.
+ *
+ * @author Miguel Ruiz Baca
+ * @version 1.0
+ */
+
 public class CPrincipal {
 
+    /**
+     * ArrayList que almacena los clientes.
+     */
     private static final ArrayList<Cliente> CLIENTES = new ArrayList<>();
+
+    /**
+     * ArrayList que almacena los productos.
+     */
     private static final ArrayList<Producto> PRODUCTOS = new ArrayList<>();
 
+    /**
+     * Método ejecutable de la clase principal.
+     *
+     * @param args Argumentos de la línea de comandos.
+     */
     public static void main(String[] args) {
 
         menuPrincipal();
 
     }
 
+    /**
+     * Gestion del menú principal del programa.
+     */
     private static void menuPrincipal() {
 
+        // Se muestran las opciones del menú principal.
         IO_ES.escribir("===== Menú Principal =====");
         IO_ES.escribir(" 1. Gestionar Clientes.");
         IO_ES.escribir(" 2. Gestionar Productos.");
@@ -31,37 +54,41 @@ public class CPrincipal {
         int op = IO_ES.leerEntero("Selecciona una opción: ", 1, 5);
         IO_ES.escribir("");
 
+        // Se ejecuta la opción seleccionada.
         switch (op) {
 
             case 1:
+                // Gestionar Clientes.
                 gestionarClientes();
                 break;
             case 2:
+                // Gestionar Productos.
                 gestionarProductos();
                 break;
             case 3:
-                try {
-                    guardarDatos();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                // Guardar datos en fichero de texto.
+                guardarDatos();
+
                 break;
             case 4:
-                try {
-                    recuperarDatos();
-                } catch (IOException | ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
+                // Recuperar datos en fichero de texto.
+                recuperarDatos();
+
                 break;
             case 5:
+                // Salir.
                 System.exit(0);
                 break;
         }
 
     }
 
+    /**
+     * Gestion del menú y las opciones de gestión de clientes.
+     */
     private static void gestionarClientes(){
 
+        // Se muestran las opciones del menú de gestión de clientes.
         IO_ES.escribir("======= Gestionar Clientes =======");
         IO_ES.escribir(" 1. Dar de alta un cliente nuevo.");
         IO_ES.escribir(" 2. Buscar cliente por DNI.");
@@ -73,6 +100,7 @@ public class CPrincipal {
         int op = IO_ES.leerEntero("Selecciona una opción: ", 1, 6);
         IO_ES.escribir("");
 
+        // Se ejecuta la opción seleccionada.
         switch (op) {
 
             case 1:
@@ -83,6 +111,7 @@ public class CPrincipal {
 
                 for (Cliente cliente : CLIENTES) {
 
+                    // Si el id ya existe, se muestra un mensaje de error y se vuelve a ejecutar el método.
                     if (cliente.getId().equals(id)) {
 
                         IO_ES.escribir("");
@@ -99,6 +128,7 @@ public class CPrincipal {
 
                 String dni = IO_ES.leerCadena("Introduce el DNI del cliente: ");
 
+                // Comprueba si el DNI es válido.
                 while (!ValidarDatos.validarNif(dni)) {
 
                     IO_ES.escribir("");
@@ -109,6 +139,7 @@ public class CPrincipal {
 
                 }
 
+                // Crear el cliente y lo añade al ArrayList.
                 CLIENTES.add(new Cliente(
                         id,
                         dni,
@@ -129,6 +160,7 @@ public class CPrincipal {
             case 2:
                 // Buscar cliente por DNI.
 
+                // Si no hay clientes dados de alta, se muestra un mensaje de error y se vuelve a ejecutar el método.
                 if (CLIENTES.size() == 0) {
 
                     IO_ES.escribir("ERROR: No hay clientes dados de alta.");
@@ -138,10 +170,12 @@ public class CPrincipal {
 
                 } else {
 
+                    // Se pide el DNI del cliente.
                     dni = IO_ES.leerCadena("Introduce el DNI del cliente: ");
 
                     for (Cliente cliente : CLIENTES) {
 
+                        // Si el DNI introducido coincide con el DNI de un cliente, se muestra la información del cliente.
                         if (cliente.getDni().equals(dni)) {
 
                             IO_ES.escribir("");
@@ -152,6 +186,7 @@ public class CPrincipal {
 
                         } else {
 
+                            // Si no coincide, se muestra un mensaje de error.
                             IO_ES.escribir("");
                             IO_ES.escribir("ERROR: No se ha encontrado ningun cliente que se corresponda con el DNI introducido.");
                             IO_ES.escribir("");
@@ -170,6 +205,7 @@ public class CPrincipal {
             case 3:
                 // Dar de baja un cliente.
 
+                // Si no hay clientes dados de alta, se muestra un mensaje de error y se vuelve a ejecutar el método.
                 if (CLIENTES.size() == 0) {
 
                     IO_ES.escribir("ERROR: No hay clientes dados de alta.");
@@ -179,10 +215,12 @@ public class CPrincipal {
 
                 } else {
 
+                    // Se pide el ID del cliente.
                     id = IO_ES.leerCadena("Introduce el ID del cliente: ");
 
                     for (Cliente cliente : CLIENTES) {
 
+                        // Si el ID introducido coincide con el ID de un cliente, se da de baja al cliente.
                         if (cliente.getId().equals(id)) {
 
                             cliente.setBaja(true);
@@ -195,6 +233,7 @@ public class CPrincipal {
 
                         } else {
 
+                            // Si no coincide, se muestra un mensaje de error.
                             IO_ES.escribir("");
                             IO_ES.escribir("ERROR: No se ha encontrado ningun cliente que se corresponda con el ID introducido.");
                             IO_ES.escribir("");
@@ -213,6 +252,7 @@ public class CPrincipal {
             case 4:
                 // Modificar datos del cliente.
 
+                // Si no hay clientes dados de alta, se muestra un mensaje de error y se vuelve a ejecutar el método.
                 if (CLIENTES.size() == 0) {
 
                     IO_ES.escribir("ERROR: No hay clientes dados de alta.");
@@ -222,10 +262,12 @@ public class CPrincipal {
 
                 } else {
 
+                    // Se pide el ID del cliente.
                     id = IO_ES.leerCadena("Introduce el ID del cliente: ");
 
                     for (Cliente cliente : CLIENTES) {
 
+                        // Si el ID introducido coincide con el ID de un cliente, se modifican los datos del cliente.
                         if (cliente.getId().equals(id)) {
 
                             cliente.setDni(IO_ES.leerCadena("Introduce el DNI del cliente: "));
@@ -241,6 +283,7 @@ public class CPrincipal {
 
                         } else {
 
+                            // Si no coincide, se muestra un mensaje de error.
                             IO_ES.escribir("");
                             IO_ES.escribir("ERROR: No se ha encontrado ningun cliente que se corresponda con el ID introducido.");
                             IO_ES.escribir("");
@@ -259,6 +302,7 @@ public class CPrincipal {
             case 5:
                 // Listar clientes.
 
+                // Si no hay clientes dados de alta, se muestra un mensaje de error y se vuelve a ejecutar el método.
                 if (CLIENTES.size() == 0) {
 
                     IO_ES.escribir("ERROR: No hay clientes dados de alta.");
@@ -266,6 +310,7 @@ public class CPrincipal {
 
                 } else {
 
+                    // Se muestran los datos de todos los clientes.
                     for (Cliente cliente : CLIENTES) {
 
                         IO_ES.escribir(cliente.toString());
@@ -281,14 +326,19 @@ public class CPrincipal {
 
                 break;
             case 6:
+                // Volver al menú principal.
                 menuPrincipal();
                 break;
         }
 
     }
 
+    /**
+     * Gestion del menú y las opciones de gestión de productos.
+     */
     private static void gestionarProductos(){
 
+        // Se muestran las opciones del menú de gestión de productos.
         IO_ES.escribir("======= Gestionar Productos =======");
         IO_ES.escribir("1. Dar de alta un producto.");
         IO_ES.escribir("2. Buscar producto.");
@@ -300,11 +350,13 @@ public class CPrincipal {
         int op = IO_ES.leerEntero("Selecciona una opción: ", 1, 6);
         IO_ES.escribir("");
 
+        // Se ejecuta la opción seleccionada.
         switch (op) {
 
             case 1:
                 // Dar de alta un producto.
 
+                // Se pide el tipo de producto a dar de alta.
                 IO_ES.escribir("==== Tipo de producto =====");
                 IO_ES.escribir(" 1. Medicamento.");
                 IO_ES.escribir(" 2. Parafarmacia.");
@@ -312,10 +364,12 @@ public class CPrincipal {
                 op = IO_ES.leerEntero("Selecciona una opción: ", 1, 2);
                 IO_ES.escribir("");
 
+                // Se pide el código del producto.
                 String codigo = IO_ES.leerCadena("Introduce el código del producto: ");
 
                 for (Producto producto : PRODUCTOS) {
 
+                    // Si el código introducido coincide con el código de un producto, se muestra un mensaje de error y se vuelve a ejecutar el método.
                     if (producto.getCodigo().equals(codigo)) {
 
                         IO_ES.escribir("");
@@ -330,10 +384,12 @@ public class CPrincipal {
 
                 }
 
+                // Se ejecuta la opción seleccionada en la linea 377.
                 switch (op) {
                     case 1:
                         // Medicamento.
 
+                        // Se añade el producto de tipo medicamento a la lista de productos.
                         PRODUCTOS.add(new Medicamento(
                                 codigo,
                                 IO_ES.leerCadena("Introduce el nombre del producto: "),
@@ -349,6 +405,7 @@ public class CPrincipal {
                     case 2:
                         // Parafarmacia.
 
+                        // Se añade el producto de tipo parafarmacia a la lista de productos.
                         PRODUCTOS.add(new ParaFarmacia(
                                 codigo,
                                 IO_ES.leerCadena("Introduce el nombre del producto: "),
@@ -375,6 +432,7 @@ public class CPrincipal {
             case 2:
                 // Buscar producto.
 
+                // Si no hay productos dados de alta, se muestra un mensaje de error y se vuelve a ejecutar el método.
                 if (PRODUCTOS.size() == 0) {
 
                     IO_ES.escribir("ERROR: No hay productos dados de alta.");
@@ -384,10 +442,12 @@ public class CPrincipal {
 
                 } else {
 
+                    // Se pide el código del producto a buscar.
                     codigo = IO_ES.leerCadena("Introduce el código del producto: ");
 
                     for (Producto producto : PRODUCTOS) {
 
+                        // Si el código introducido coincide con el código de un producto, se muestran los datos de ese producto.
                         if (producto.getCodigo().equals(codigo)) {
 
                             IO_ES.escribir("");
@@ -398,6 +458,7 @@ public class CPrincipal {
 
                         } else {
 
+                            // Si el código introducido no coincide con el código de ningún producto, se muestra un mensaje de error.
                             IO_ES.escribir("");
                             IO_ES.escribir("ERROR: No se ha encontrado ningun cliente que se corresponda con el código introducido.");
                             IO_ES.escribir("");
@@ -416,6 +477,7 @@ public class CPrincipal {
             case 3:
                 // Dar de baja un producto.
 
+                // Si no hay productos dados de alta, se muestra un mensaje de error y se vuelve a ejecutar el método.
                 if (PRODUCTOS.size() == 0) {
 
                     IO_ES.escribir("ERROR: No hay productos dados de alta.");
@@ -425,12 +487,14 @@ public class CPrincipal {
 
                 } else {
 
+                    // Se pide el código del producto a dar de baja.
                     codigo = IO_ES.leerCadena("Introduce el código del producto: ");
                     Iterator<Producto> itProductos = PRODUCTOS.iterator();
                     int size = PRODUCTOS.size();
 
                     while (itProductos.hasNext()) {
 
+                        // Si el código introducido coincide con el código de un producto, se elimina ese producto de la lista de productos.
                         if (itProductos.next().getCodigo().equals(codigo)) {
 
                             itProductos.remove();
@@ -445,6 +509,7 @@ public class CPrincipal {
 
                     }
 
+                    // Si no se ha eliminado ningún producto, se muestra un mensaje de error.
                     if (size == PRODUCTOS.size()) {
 
                         IO_ES.escribir("");
@@ -463,6 +528,7 @@ public class CPrincipal {
             case 4:
                 // Modificar datos del producto.
 
+                // Si no hay productos dados de alta, se muestra un mensaje de error y se vuelve a ejecutar el método.
                 if (PRODUCTOS.size() == 0) {
 
                     IO_ES.escribir("ERROR: No hay productos dados de alta.");
@@ -472,74 +538,43 @@ public class CPrincipal {
 
                 } else {
 
-                    IO_ES.escribir("==== Tipo de producto =====");
-                    IO_ES.escribir(" 1. Medicamento.");
-                    IO_ES.escribir(" 2. Parafarmacia.");
-                    IO_ES.escribir("===========================");
-                    op = IO_ES.leerEntero("Selecciona una opción: ", 1, 2);
-                    IO_ES.escribir("");
-
+                    // Se pide el código del producto a modificar.
                     codigo = IO_ES.leerCadena("Introduce el código del producto: ");
 
-                    switch (op) {
+                    for (Producto producto : PRODUCTOS) {
 
-                        case 1:
-                            // Medicamento.
+                        // Si el código introducido coincide con el código de un producto, se modifican los datos de ese producto.
+                        if (producto.getCodigo().equals(codigo)) {
 
-                            for (Producto producto : PRODUCTOS) {
+                            producto.setNombre(IO_ES.leerCadena("Introduce el nombre del producto: "));
+                            producto.setDescripcion(IO_ES.leerCadena("Introduce la descripcion del producto: "));
+                            producto.setPrecio(IO_ES.leerDecimal("Introduce el precio del producto: "));
+                            producto.setUnidades(IO_ES.leerEntero("Introduce el stock del producto: "));
 
-                                if (producto.getCodigo().equals(codigo)) {
+                            if (producto instanceof Medicamento) {
 
-                                    producto.setNombre(IO_ES.leerCadena("Introduce el nombre del producto: "));
-                                    producto.setDescripcion(IO_ES.leerCadena("Introduce la descripcion del producto: "));
-                                    producto.setPrecio(IO_ES.leerDecimal("Introduce el precio del producto: "));
-                                    producto.setUnidades(IO_ES.leerEntero("Introduce el stock del producto: "));
-                                    ((Medicamento) producto).setTipoMedicamento(selecionarTipoMedicamento());
-                                    ((Medicamento) producto).setComoTomar(IO_ES.leerCadena("Introduce como se debe tomar el medicamento: "));
-                                    ((Medicamento) producto).setEfectosAdverso(IO_ES.leerCadena("Introduce los efectos secundarios del medicamento: "));
+                                ((Medicamento) producto).setTipoMedicamento(selecionarTipoMedicamento());
+                                ((Medicamento) producto).setComoTomar(IO_ES.leerCadena("Introduce como se debe tomar el medicamento: "));
+                                ((Medicamento) producto).setEfectosAdverso(IO_ES.leerCadena("Introduce los efectos secundarios del medicamento: "));
 
-                                } else {
+                            } else if (producto instanceof ParaFarmacia) {
 
-                                    IO_ES.escribir("");
-                                    IO_ES.escribir("ERROR: No se ha encontrado ningun cliente que se corresponda con el código introducido.");
-                                    IO_ES.escribir("");
-
-                                    sleep(2);
-
-                                }
+                                ((ParaFarmacia) producto).setCategoria(selecionarCategoria());
+                                ((ParaFarmacia) producto).setDosisUnidades(IO_ES.leerEntero("Introduce el las dosis de cada unidad: "));
+                                ((ParaFarmacia) producto).setDescuento(IO_ES.leerDecimal("Introduce el porcentaje de descuento: "));
 
                             }
 
-                            break;
+                        } else {
 
-                        case 2:
-                            // Parafarmacia.
+                            // Si el código introducido no coincide con el código de ningún producto, se muestra un mensaje de error.
+                            IO_ES.escribir("");
+                            IO_ES.escribir("ERROR: No se ha encontrado ningun cliente que se corresponda con el código introducido.");
+                            IO_ES.escribir("");
 
-                            for (Producto producto : PRODUCTOS) {
+                            sleep(2);
 
-                                if (producto.getCodigo().equals(codigo)) {
-
-                                    producto.setNombre(IO_ES.leerCadena("Introduce el nombre del producto: "));
-                                    producto.setDescripcion(IO_ES.leerCadena("Introduce la descripcion del producto: "));
-                                    producto.setPrecio(IO_ES.leerDecimal("Introduce el precio del producto: "));
-                                    producto.setUnidades(IO_ES.leerEntero("Introduce el stock del producto: "));
-                                    ((ParaFarmacia) producto).setCategoria(selecionarCategoria());
-                                    ((ParaFarmacia) producto).setDosisUnidades(IO_ES.leerEntero("Introduce el las dosis de cada unidad: "));
-                                    ((ParaFarmacia) producto).setDescuento(IO_ES.leerDecimal("Introduce el porcentaje de descuento: "));
-
-                                } else {
-
-                                    IO_ES.escribir("");
-                                    IO_ES.escribir("ERROR: No se ha encontrado ningun cliente que se corresponda con el código introducido.");
-                                    IO_ES.escribir("");
-
-                                    sleep(2);
-
-                                }
-
-                            }
-
-                            break;
+                        }
 
                     }
 
@@ -551,6 +586,7 @@ public class CPrincipal {
             case 5:
                 // Listar productos.
 
+                // Si no hay productos dados de alta, se muestra un mensaje de error y se vuelve a ejecutar el método.
                 if (PRODUCTOS.size() == 0) {
 
                     IO_ES.escribir("ERROR: No hay productos dados de alta.");
@@ -560,6 +596,7 @@ public class CPrincipal {
 
                 } else {
 
+                    // Se muestran los datos de todos los productos.
                     for (Producto producto : PRODUCTOS) {
 
                         IO_ES.escribir(producto.toString());
@@ -575,18 +612,26 @@ public class CPrincipal {
 
                 break;
             case 6:
+                // Volver al menú principal.
                 menuPrincipal();
                 break;
         }
 
     }
 
-    private static void guardarDatos() throws IOException {
+    /**
+     * Guarda los datos de los clientes y los productos en un fichero de texto.
+     */
+    private static void guardarDatos() {
 
+        // Se guardan los datos de los clientes y los productos en un fichero de texto.
         try {
+            // Se crea el fichero de texto.
             FileOutputStream archivoSalida = new FileOutputStream("datos.txt");
+            // Se crea el objeto para escribir en el fichero de texto.
             ObjectOutputStream objetoSalida = new ObjectOutputStream(archivoSalida);
 
+            // Se escriben los datos de los clientes y los productos en el fichero de texto.
             for (Cliente c : CLIENTES) {
                 objetoSalida.writeObject(c);
             }
@@ -595,6 +640,7 @@ public class CPrincipal {
                 objetoSalida.writeObject(p);
             }
 
+            // Se cierra el fichero de texto.
             objetoSalida.close();
 
             IO_ES.escribir("Datos guardados correctamente.");
@@ -605,18 +651,34 @@ public class CPrincipal {
             menuPrincipal();
 
         } catch (IOException e) {
-            e.printStackTrace();
+
+            // Si no se ha podido guardar los datos en el fichero de texto, se muestra un mensaje de error.
+            IO_ES.escribir("ERROR: No se ha podido guardar los datos en el fichero de texto.");
+            IO_ES.escribir("");
+
+            sleep(2);
+
+            menuPrincipal();
+
         }
 
     }
 
-    private static void recuperarDatos() throws IOException, ClassNotFoundException {
+    /**
+     * Recupera los datos de los clientes y los productos de un fichero de texto.
+     */
+    private static void recuperarDatos() {
 
+        // Se recuperan los datos de los clientes y los productos del fichero de texto.
         try {
+            // Se crea el fichero de texto.
             FileInputStream archivoEntrada = new FileInputStream("datos.txt");
+            // Se crea el objeto para leer el fichero de texto.
             ObjectInputStream objetoEntrada = new ObjectInputStream(archivoEntrada);
+            // Se crea un ArrayList para almacenar los objetos recuperados.
             ArrayList<Object> objetosRecuperados = new ArrayList<>();
 
+            // Se recuperan los objetos del fichero de texto y se almacenan en el ArrayList.
             while (true) {
                 try {
                     Object objetoRecuperado = objetoEntrada.readObject();
@@ -626,6 +688,7 @@ public class CPrincipal {
                 }
             }
 
+            // Se recorren los objetos recuperados y se almacenan en los ArrayList correspondientes.
             for (Object objeto : objetosRecuperados) {
 
                 if (objeto instanceof Cliente) {
@@ -636,6 +699,7 @@ public class CPrincipal {
 
             }
 
+            // Se cierra el fichero de texto.
             objetoEntrada.close();
 
             IO_ES.escribir("Datos recuperados correctamente.");
@@ -647,7 +711,13 @@ public class CPrincipal {
 
         } catch (IOException | ClassNotFoundException e) {
 
-            e.printStackTrace();
+            // Si no se ha podido recuperar los datos del fichero de texto, se muestra un mensaje de error.
+            IO_ES.escribir("ERROR: No se ha podido recuperar los datos del fichero de texto.");
+            IO_ES.escribir("");
+
+            sleep(2);
+
+            menuPrincipal();
 
         }
 
@@ -656,8 +726,14 @@ public class CPrincipal {
 
     }
 
+    /**
+     * Permite seleccionar el tipo de medicamento.
+     *
+     * @return Tipo de medicamento.
+     */
     private static TipoMedicamento selecionarTipoMedicamento() {
 
+        // Se muestra un menú con los tipos de medicamentos y se devuelve el tipo de medicamento seleccionado.
         try {
 
             IO_ES.escribir("");
@@ -706,6 +782,7 @@ public class CPrincipal {
 
         } catch (IllegalArgumentException e) {
 
+            // Si el tipo de medicamento introducido no es valido, se muestra un mensaje de error y se vuelve a pedir el tipo de medicamento.
             IO_ES.escribir("");
             IO_ES.escribir("ERROR: El tipo de medicamento introducido no es valido. Debe seleccionar un tipo de medicamento de la lista.");
             IO_ES.escribir("");
@@ -718,8 +795,14 @@ public class CPrincipal {
 
     }
 
+    /**
+     * Permite seleccionar la categoria.
+     *
+     * @return Categoria.
+     */
     private static Categoria selecionarCategoria() {
 
+        // Se muestra un menú con las categorias de productos y se devuelve la categoria seleccionada.
         try {
 
             IO_ES.escribir("");
@@ -783,6 +866,7 @@ public class CPrincipal {
 
         } catch (IllegalArgumentException e) {
 
+            // Si la categoria del producto introducida no es valida, se muestra un mensaje de error y se vuelve a pedir la categoria del producto.
             IO_ES.escribir("");
             IO_ES.escribir("ERROR: La categoría del producto introducida no es valida. Debe seleccionar una categoría de la lista.");
             IO_ES.escribir("");
@@ -795,6 +879,10 @@ public class CPrincipal {
 
     }
 
+    /**
+     * Permite pausar la ejecución del programa.
+     * @param segundos
+     */
     private static void sleep(int segundos) {
 
         try {
