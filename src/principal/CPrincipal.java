@@ -144,7 +144,7 @@ public class CPrincipal {
                         id,
                         dni,
                         IO_ES.leerCadena("Introduce el nombre del cliente: "),
-                        IO_ES.leerCadena("Introduce el direccion del cliente: "),
+                        IO_ES.leerCadena("Introduce la direccion del cliente: "),
                         IO_ES.leerCadena("Introduce el telefono del cliente: ")
                 ));
 
