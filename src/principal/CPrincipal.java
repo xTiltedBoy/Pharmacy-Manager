@@ -597,7 +597,6 @@ public class CPrincipal {
 
             objetoSalida.close();
 
-            IO_ES.escribir("");
             IO_ES.escribir("Datos guardados correctamente.");
             IO_ES.escribir("");
 
@@ -639,7 +638,6 @@ public class CPrincipal {
 
             objetoEntrada.close();
 
-            IO_ES.escribir("");
             IO_ES.escribir("Datos recuperados correctamente.");
             IO_ES.escribir("");
 
@@ -662,12 +660,54 @@ public class CPrincipal {
 
         try {
 
-            return TipoMedicamento.valueOf(IO_ES.leerCadena("Introduce el tipo del medicamento: ").toUpperCase());
+            IO_ES.escribir("");
+            IO_ES.escribir("Tipos de medicamentos: ");
+            IO_ES.escribir("");
+            IO_ES.escribir("1. ANALGESICOS");
+            IO_ES.escribir("2. LAXANTES");
+            IO_ES.escribir("3. ANTIINFECCIOSOS");
+            IO_ES.escribir("4. ANTIDEPRESIVOS");
+            IO_ES.escribir("5. ANTITUSIVOS");
+            IO_ES.escribir("6. MUCOLITICOS");
+            IO_ES.escribir("7. ANTIACIDOS");
+            IO_ES.escribir("8. ANTIULCEROSOS");
+            IO_ES.escribir("9. ANTIALERGICOS");
+            IO_ES.escribir("10. ANTIFIARREICOS");
+            IO_ES.escribir("");
+
+            String op = IO_ES.leerCadena("Introduce el tipo de medicamento: ");
+
+            switch (op) {
+
+                case "1":
+                    return TipoMedicamento.ANALGESICOS;
+                case "2":
+                    return TipoMedicamento.LAXANTES;
+                case "3":
+                    return TipoMedicamento.ANTIINFECCIOSOS;
+                case "4":
+                    return TipoMedicamento.ANTIDEPRESIVOS;
+                case "5":
+                    return TipoMedicamento.ANTITUSIVOS;
+                case "6":
+                    return TipoMedicamento.MUCOLITICOS;
+                case "7":
+                    return TipoMedicamento.ANTIACIDOS;
+                case "8":
+                    return TipoMedicamento.ANTIULCEROSOS;
+                case "9":
+                    return TipoMedicamento.ANTIALERGICOS;
+                case "10":
+                    return TipoMedicamento.ANTIFIARREICOS;
+                default:
+                    return TipoMedicamento.valueOf(op.toUpperCase());
+
+            }
 
         } catch (IllegalArgumentException e) {
 
             IO_ES.escribir("");
-            IO_ES.escribir("ERROR: El tipo de medicamento introducido no es valido.");
+            IO_ES.escribir("ERROR: El tipo de medicamento introducido no es valido. Debe seleccionar un tipo de medicamento de la lista.");
             IO_ES.escribir("");
 
             sleep(2);
@@ -682,12 +722,69 @@ public class CPrincipal {
 
         try {
 
-            return Categoria.valueOf(IO_ES.leerCadena("Introduce la categoría del producto: ").toUpperCase());
+            IO_ES.escribir("");
+            IO_ES.escribir("Categorias de productos: ");
+            IO_ES.escribir("");
+            IO_ES.escribir("1. DENTAL");
+            IO_ES.escribir("2. FACIAL");
+            IO_ES.escribir("3. GELES");
+            IO_ES.escribir("4. CORPORAL");
+            IO_ES.escribir("5. CABELLO");
+            IO_ES.escribir("6. ANTIMOSQUITOS");
+            IO_ES.escribir("7. INTIMA");
+            IO_ES.escribir("8. NASAL");
+            IO_ES.escribir("9. OCULAR");
+            IO_ES.escribir("10. BOTIQUIN");
+            IO_ES.escribir("11. OIDOS");
+            IO_ES.escribir("12. TOALLITAS");
+            IO_ES.escribir("13. LIMPIEZA");
+            IO_ES.escribir("14. HOGAR");
+            IO_ES.escribir("15. MASCARILLAS");
+            IO_ES.escribir("");
+
+            String op = IO_ES.leerCadena("Introduce la categoría del producto: ");
+
+            switch (op) {
+
+                case "1":
+                    return Categoria.DENTAL;
+                case "2":
+                    return Categoria.FACIAL;
+                case "3":
+                    return Categoria.GELES;
+                case "4":
+                    return Categoria.CORPORAL;
+                case "5":
+                    return Categoria.CABELLO;
+                case "6":
+                    return Categoria.ANTIMOSQUITOS;
+                case "7":
+                    return Categoria.INTIMA;
+                case "8":
+                    return Categoria.NASAL;
+                case "9":
+                    return Categoria.OCULAR;
+                case "10":
+                    return Categoria.BOTIQUIN;
+                case "11":
+                    return Categoria.OIDOS;
+                case "12":
+                    return Categoria.TOALLITAS;
+                case "13":
+                    return Categoria.LIMPIEZA;
+                case "14":
+                    return Categoria.HOGAR;
+                case "15":
+                    return Categoria.MASCARILLAS;
+                default:
+                    return Categoria.valueOf(op.toUpperCase());
+
+            }
 
         } catch (IllegalArgumentException e) {
 
             IO_ES.escribir("");
-            IO_ES.escribir("ERROR: La categoría del producto introducida no es valida.");
+            IO_ES.escribir("ERROR: La categoría del producto introducida no es valida. Debe seleccionar una categoría de la lista.");
             IO_ES.escribir("");
 
             sleep(2);
