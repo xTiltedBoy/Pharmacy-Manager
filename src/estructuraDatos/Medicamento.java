@@ -116,7 +116,7 @@ public class Medicamento extends Producto implements Serializable {
     /**
      * Devuelve un String con la información del medicamento.
      *
-     * @return String con la información del medicamento.
+     * @return String con la información del producto de tipo Medicamento.
      */
     @Override
     public String toString() {

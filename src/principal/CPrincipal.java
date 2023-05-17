@@ -881,7 +881,7 @@ public class CPrincipal {
 
     /**
      * Permite pausar la ejecución del programa.
-     * @param segundos
+     * @param segundos Segundos que se desea pausar la ejecución del programa.
      */
     private static void sleep(int segundos) {
 

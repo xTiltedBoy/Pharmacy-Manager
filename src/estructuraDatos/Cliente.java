@@ -179,7 +179,7 @@ public class Cliente implements Serializable {
     /**
      * Establece si el cliente está dado de baja.
      *
-     * @param baja
+     * @param baja Indica si el cliente está dado de baja.
      */
     public void setBaja(boolean baja) {
         this.baja = baja;

@@ -62,6 +62,8 @@ public class ParaFarmacia extends Producto implements Serializable {
 
     /**
      * Devuelve la dosis por cada unidad del producto.
+     *
+     * @return Dosís por cada unidad del producto.
      */
     public int getDosisUnidades() {
         return dosisUnidades;
@@ -69,6 +71,8 @@ public class ParaFarmacia extends Producto implements Serializable {
 
     /**
      * Establece la dosis por cada unidad del producto.
+     *
+     * @param dosisUnidades Dosís por cada unidad del producto.
      */
     public void setDosisUnidades(int dosisUnidades) {
         this.dosisUnidades = dosisUnidades;
@@ -76,6 +80,8 @@ public class ParaFarmacia extends Producto implements Serializable {
 
     /**
      * Devuelve el descuento del producto.
+     *
+     * @return Descuento del producto.
      */
     public double getDescuento() {
         return descuento;
@@ -83,6 +89,8 @@ public class ParaFarmacia extends Producto implements Serializable {
 
     /**
      * Establece el descuento del producto.
+     *
+     * @param descuento Descuento del producto.
      */
     public void setDescuento(double descuento) {
         this.descuento = descuento;
@@ -90,6 +98,8 @@ public class ParaFarmacia extends Producto implements Serializable {
 
     /**
      * Devuelve la categoría del producto.
+     *
+     * @return Categoría del producto.
      */
     public Categoria getCategoria() {
         return categoria;
@@ -97,6 +107,8 @@ public class ParaFarmacia extends Producto implements Serializable {
 
     /**
      * Establece la categoría del producto.
+     *
+     * @param categoria Categoría del producto.
      */
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
@@ -104,6 +116,8 @@ public class ParaFarmacia extends Producto implements Serializable {
 
     /**
      * Devuelve el precio del producto.
+     *
+     * @return String con la información del producto de tipo ParaFarmacia.
      */
     @Override
     public String toString() {

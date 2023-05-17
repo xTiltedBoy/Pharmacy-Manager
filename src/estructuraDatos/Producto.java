@@ -69,6 +69,7 @@ public class Producto implements Serializable {
     /**
      * Añade unidades al producto.
      *
+     * @param unidades Unidades a añadir.
      * @return
      * <ul>
      *     <li>True: Si ha sido posible añadir las unidades.</li>
@@ -94,6 +95,7 @@ public class Producto implements Serializable {
     /**
      * Quita unidades al producto.
      *
+     * @param unidades Unidades a quitar.
      * @return
      * <ul>
      *     <li>True: Si ha sido posible quitar las unidades.</li>
