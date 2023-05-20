@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @version 1.0
  */
 
-public class Producto implements Serializable {
+public abstract class Producto implements Serializable {
 
     /**
      * Código del producto.
