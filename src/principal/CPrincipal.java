@@ -160,6 +160,8 @@ public class CPrincipal {
             case 2:
                 // Buscar cliente por DNI.
 
+                boolean encontrado = false;
+
                 // Si no hay clientes dados de alta, se muestra un mensaje de error y se vuelve a ejecutar el método.
                 if (CLIENTES.size() == 0) {
 
@@ -182,16 +184,20 @@ public class CPrincipal {
 
                             sleep(2);
 
-                        } else {
-
-                            // Si no coincide, se muestra un mensaje de error.
-                            IO_ES.escribir("");
-                            IO_ES.escribir("ERROR: No se ha encontrado ningun cliente que se corresponda con el DNI introducido.");
-                            IO_ES.escribir("");
-
-                            sleep(2);
+                            encontrado = true;
 
                         }
+
+                    }
+
+                    // Si no coincide, se muestra un mensaje de error.
+                    if (!encontrado) {
+
+                        IO_ES.escribir("");
+                        IO_ES.escribir("ERROR: No se ha encontrado ningun cliente que se corresponda con el DNI introducido.");
+                        IO_ES.escribir("");
+
+                        sleep(2);
 
                     }
 
@@ -202,6 +208,8 @@ public class CPrincipal {
                 break;
             case 3:
                 // Dar de baja un cliente.
+
+                encontrado = false;
 
                 // Si no hay clientes dados de alta, se muestra un mensaje de error y se vuelve a ejecutar el método.
                 if (CLIENTES.size() == 0) {
@@ -229,16 +237,20 @@ public class CPrincipal {
 
                             sleep(2);
 
-                        } else {
-
-                            // Si no coincide, se muestra un mensaje de error.
-                            IO_ES.escribir("");
-                            IO_ES.escribir("ERROR: No se ha encontrado ningun cliente que se corresponda con el ID introducido.");
-                            IO_ES.escribir("");
-
-                            sleep(2);
+                            encontrado = true;
 
                         }
+
+                    }
+
+                    // Si no coincide, se muestra un mensaje de error.
+                    if (!encontrado) {
+
+                        IO_ES.escribir("");
+                        IO_ES.escribir("ERROR: No se ha encontrado ningun cliente que se corresponda con el ID introducido.");
+                        IO_ES.escribir("");
+
+                        sleep(2);
 
                     }
 
@@ -387,7 +399,7 @@ public class CPrincipal {
 
                 }
 
-                // Se ejecuta la opción seleccionada en la linea 377.
+                // Se ejecuta la opción seleccionada.
                 switch (op) {
                     case 1:
                         // Medicamento.
@@ -435,6 +447,8 @@ public class CPrincipal {
             case 2:
                 // Buscar producto.
 
+                boolean encontrado = false;
+
                 // Si no hay productos dados de alta, se muestra un mensaje de error y se vuelve a ejecutar el método.
                 if (PRODUCTOS.size() == 0) {
 
@@ -457,16 +471,20 @@ public class CPrincipal {
 
                             sleep(2);
 
-                        } else {
-
-                            // Si el código introducido no coincide con el código de ningún producto, se muestra un mensaje de error.
-                            IO_ES.escribir("");
-                            IO_ES.escribir("ERROR: No se ha encontrado ningun producto que se corresponda con el código introducido.");
-                            IO_ES.escribir("");
-
-                            sleep(2);
+                            encontrado = true;
 
                         }
+
+                    }
+
+                    // Si no coincide, se muestra un mensaje de error.
+                    if (!encontrado) {
+
+                        IO_ES.escribir("");
+                        IO_ES.escribir("ERROR: No se ha encontrado ningun cliente que se corresponda con el ID introducido.");
+                        IO_ES.escribir("");
+
+                        sleep(2);
 
                     }
 
@@ -477,6 +495,8 @@ public class CPrincipal {
                 break;
             case 3:
                 // Dar de baja un producto.
+
+                encontrado = false;
 
                 // Si no hay productos dados de alta, se muestra un mensaje de error y se vuelve a ejecutar el método.
                 if (PRODUCTOS.size() == 0) {
@@ -491,7 +511,6 @@ public class CPrincipal {
                     // Se pide el código del producto a dar de baja.
                     codigo = IO_ES.leerCadena("Introduce el código del producto: ");
                     Iterator<Producto> itProductos = PRODUCTOS.iterator();
-                    int size = PRODUCTOS.size();
 
                     while (itProductos.hasNext()) {
 
@@ -506,12 +525,14 @@ public class CPrincipal {
 
                             sleep(2);
 
+                            encontrado = true;
+
                         }
 
                     }
 
-                    // Si no se ha eliminado ningún producto, se muestra un mensaje de error.
-                    if (size == PRODUCTOS.size()) {
+                    // Si no se ha encontrado el producto, se muestra un mensaje de error.
+                    if (!encontrado) {
 
                         IO_ES.escribir("");
                         IO_ES.escribir("ERROR: No se ha encontrado ningun producto que se corresponda con el código introducido.");
